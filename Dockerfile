@@ -1,12 +1,19 @@
 FROM php:7.2-fpm
 
-# Prequisites for the windows packages
+# Prequisites
 RUN apt-get update && apt-get upgrade -y \
     && apt-get install -y gnupg curl apt-transport-https
 
-# Add the required windows packages
+# Add Microsoft repository
 RUN curl https://packages.microsoft.com/keys/microsoft.asc | apt-key add -
 RUN curl https://packages.microsoft.com/config/debian/9/prod.list > /etc/apt/sources.list.d/mssql-release.list
+
+# Add NodeJS repository
+RUN curl -sL https://deb.nodesource.com/setup_11.x | bash -
+
+# Add Yarn repository
+RUN curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | apt-key add -
+RUN echo "deb https://dl.yarnpkg.com/debian/ stable main" | tee /etc/apt/sources.list.d/yarn.list
 
 # Install the MSSQL required drivers
 RUN apt-get update \
@@ -40,6 +47,8 @@ RUN apt-get update && apt-get upgrade -y \
         wget \
         unzip \
         zlib1g-dev \
+        nodejs \
+        yarn \
     && docker-php-ext-configure gd \
         --with-freetype-dir=/usr/include/ \
         --with-jpeg-dir=/usr/include/ \
