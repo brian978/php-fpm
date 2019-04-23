@@ -92,6 +92,7 @@ RUN apt-get update && apt-get upgrade -y \
     && pecl install redis && docker-php-ext-enable redis \
     && pecl install sqlsrv && docker-php-ext-enable sqlsrv \
     && pecl install pdo_sqlsrv && docker-php-ext-enable pdo_sqlsrv \
+    && pecl install memcached && docker-php-ext-enable memcached \
     && yes '' | pecl install imagick && docker-php-ext-enable imagick \
     && docker-php-source delete \
     && apt-get clean -y && apt-get autoclean -y && apt-get autoremove -y \
