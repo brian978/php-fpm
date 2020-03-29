@@ -1,8 +1,10 @@
 FROM php:7.4-fpm
 
+ARG DEBIAN_FRONTEND=noninteractive
+
 # Prequisites
 RUN apt-get update && apt-get upgrade -y \
-    && apt-get install -y gnupg curl apt-transport-https
+    && apt-get install -y gnupg curl apt-transport-https apt-utils
 
 # Add Microsoft repository
 RUN curl https://packages.microsoft.com/keys/microsoft.asc | apt-key add -
@@ -25,6 +27,8 @@ RUN apt-get update && apt-get upgrade -y \
     && apt-get install -y \
         g++ \
         git \
+        libonig-dev \
+        libzip-dev \ 
         libbz2-dev \
         libc-client-dev \
         libcurl4-gnutls-dev \
@@ -51,9 +55,8 @@ RUN apt-get update && apt-get upgrade -y \
         yarn \
         iputils-ping \
     && docker-php-ext-configure gd \
-        --with-freetype-dir=/usr/include/ \
-        --with-jpeg-dir=/usr/include/ \
-        --with-png-dir=/usr/include/ \
+        --with-freetype \
+        --with-jpeg \
     && docker-php-ext-install -j$(nproc) gd \
     && docker-php-ext-configure imap --with-kerberos --with-imap-ssl \
     && docker-php-ext-install -j$(nproc) imap \
