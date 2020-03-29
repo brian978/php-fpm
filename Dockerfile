@@ -1,8 +1,10 @@
 FROM php:7.3-fpm
 
+ARG DEBIAN_FRONTEND=noninteractive
+
 # Prequisites
 RUN apt-get update && apt-get upgrade -y \
-    && apt-get install -y gnupg curl apt-transport-https
+    && apt-get install -y gnupg curl apt-transport-https apt-utils
 
 # Add Microsoft repository
 RUN curl https://packages.microsoft.com/keys/microsoft.asc | apt-key add -
@@ -25,6 +27,7 @@ RUN apt-get update && apt-get upgrade -y \
     && apt-get install -y \
         g++ \
         git \
+        libzip-dev \
         libbz2-dev \
         libc-client-dev \
         libcurl4-gnutls-dev \
