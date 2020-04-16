@@ -1,6 +1,6 @@
 # PHP FPM docker container
 
-* Base image: php:7.3-fpm
+* Base image: php:7.4-fpm
 * Provides:
     * php
     * xdebug support
