@@ -20,6 +20,10 @@ RUN apt-get update \
     && ACCEPT_EULA=Y apt-get install -y msodbcsql17 mssql-tools \
     && apt-get install -y vim unixodbc-dev
 
+# Download PHP tools
+RUN curl https://getcomposer.org/composer-stable.phar -o /usr/local/bin/composer && chmod +x /usr/local/bin/composer
+RUN curl https://phar.phpunit.de/phpunit-9.phar -o /usr/local/bin/phpunit && chmod +x /usr/local/bin/phpunit
+
 # PHP setup
 RUN apt-get update && apt-get upgrade -y \
     && apt-get install -y \
