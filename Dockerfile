@@ -3,15 +3,16 @@ FROM php:7.4-fpm
 ARG DEBIAN_FRONTEND=noninteractive
 
 # Prequisites
-RUN apt-get update && apt-get upgrade -y \
+RUN apt-get update \
+    && apt-get upgrade -y \
     && apt-get install -y gnupg curl apt-transport-https apt-utils
 
 # Add Microsoft repository
 RUN curl https://packages.microsoft.com/keys/microsoft.asc | apt-key add -
-RUN curl https://packages.microsoft.com/config/debian/9/prod.list > /etc/apt/sources.list.d/mssql-release.list
+RUN curl https://packages.microsoft.com/config/debian/10/prod.list > /etc/apt/sources.list.d/mssql-release.list
 
 # Add NodeJS repository
-RUN curl -sL https://deb.nodesource.com/setup_12.x | bash -
+RUN curl -sL https://deb.nodesource.com/setup_15.x | bash -
 
 # Add Yarn repository
 RUN curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | apt-key add -
@@ -24,10 +25,11 @@ RUN apt-get update \
 
 # Download PHP tools
 RUN curl https://getcomposer.org/composer-stable.phar -o /usr/local/bin/composer && chmod +x /usr/local/bin/composer
-RUN curl https://phar.phpunit.de/phpunit-9.phar -o /usr/local/bin/phpunit && chmod +x /usr/local/bin/phpunit
+RUN curl https://phar.phpunit.de/phpunit-9.5.0.phar -o /usr/local/bin/phpunit && chmod +x /usr/local/bin/phpunit
 
 # PHP setup
-RUN apt-get update && apt-get upgrade -y \
+RUN apt-get update \
+    && apt-get upgrade -y \
     && apt-get install -y \
         g++ \
         git \
@@ -58,6 +60,7 @@ RUN apt-get update && apt-get upgrade -y \
         nodejs \
         yarn \
         iputils-ping \
+        locales \
     && docker-php-ext-configure gd \
         --with-freetype \
         --with-jpeg \
@@ -78,6 +81,7 @@ RUN apt-get update && apt-get upgrade -y \
         ftp \
         gettext \
         iconv \
+        intl \
         mbstring \
         mysqli \
         pdo_mysql \
@@ -104,3 +108,7 @@ RUN apt-get update && apt-get upgrade -y \
     && docker-php-source delete \
     && apt-get clean -y && apt-get autoclean -y && apt-get autoremove -y \
     && rm -rf /var/lib/apt/lists/*
+
+
+# Enable all UTF-8 locales
+RUN sed -i -E "s/#\ (.*)\.UTF-8(.*)/\1.UTF-8\2/" /etc/locale.gen && locale-gen

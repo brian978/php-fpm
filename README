@@ -3,6 +3,7 @@
 * Base image: php:7.4-fpm
 * Provides:
     * php
+    * php-intl support
     * xdebug support
     * MongoDB support
     * mssql support
