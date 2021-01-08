@@ -11,7 +11,7 @@ RUN curl https://packages.microsoft.com/keys/microsoft.asc | apt-key add -
 RUN curl https://packages.microsoft.com/config/debian/9/prod.list > /etc/apt/sources.list.d/mssql-release.list
 
 # Add NodeJS repository
-RUN curl -sL https://deb.nodesource.com/setup_11.x | bash -
+RUN curl -sL https://deb.nodesource.com/setup_12.x | bash -
 
 # Add Yarn repository
 RUN curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | apt-key add -
@@ -39,7 +39,10 @@ RUN apt-get update && apt-get upgrade -y \
         libedit-dev \
         libfreetype6-dev \
         libicu-dev \
+        libwebp-dev \
         libjpeg62-turbo-dev \
+        libpng-dev \
+        libxpm-dev \
         libkrb5-dev \
         libldap2-dev \
         libmagickwand-dev \
@@ -59,8 +62,8 @@ RUN apt-get update && apt-get upgrade -y \
         yarn \
         iputils-ping \
     && docker-php-ext-configure gd \
-        --with-freetype \
-        --with-jpeg \
+        --with-freetype-dir=/usr \
+        --with-jpeg-dir=/usr \
     && docker-php-ext-install -j$(nproc) gd \
     && docker-php-ext-configure imap --with-kerberos --with-imap-ssl \
     && docker-php-ext-install -j$(nproc) imap \
