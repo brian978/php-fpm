@@ -11,8 +11,8 @@ RUN apt-get update \
 RUN curl -sL https://deb.nodesource.com/setup_15.x | bash -
 
 # Add Yarn repository
-# RUN curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | apt-key add -
-# RUN echo "deb https://dl.yarnpkg.com/debian/ stable main" | tee /etc/apt/sources.list.d/yarn.list
+RUN curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | apt-key add -
+RUN echo "deb https://dl.yarnpkg.com/debian/ stable main" | tee /etc/apt/sources.list.d/yarn.list
 
 # Download PHP tools
 RUN curl https://getcomposer.org/composer-stable.phar -o /usr/local/bin/composer && chmod +x /usr/local/bin/composer
@@ -22,7 +22,6 @@ RUN curl https://phar.phpunit.de/phpunit-9.5.0.phar -o /usr/local/bin/phpunit &&
 RUN apt-get update \
     && apt-get upgrade -y \
     && apt-get install -y \
-        g++ \
         git \
         libonig-dev \
         libzip-dev \ 
@@ -60,7 +59,7 @@ RUN apt-get update \
     && docker-php-ext-install -j$(nproc) imap \
     && docker-php-ext-configure intl \
     && docker-php-ext-install -j$(nproc) intl \
-    && docker-php-ext-configure ldap --with-libdir=lib/x86_64-linux-gnu/ \
+    && docker-php-ext-configure ldap --with-libdir=lib/aarch64-linux-gnu/ \
     && docker-php-ext-install ldap \
     && docker-php-ext-install -j$(nproc) \
         bcmath \
@@ -85,17 +84,13 @@ RUN apt-get update \
         sockets \
         sodium \
         xml \
-        xmlrpc \
         xmlwriter \
         xsl \
         zip \
     && pecl install xdebug && docker-php-ext-enable xdebug \
     && pecl install mongodb && docker-php-ext-enable mongodb \
     && pecl install redis && docker-php-ext-enable redis \
-    && pecl install sqlsrv && docker-php-ext-enable sqlsrv \
-    && pecl install pdo_sqlsrv && docker-php-ext-enable pdo_sqlsrv \
     && pecl install memcached && docker-php-ext-enable memcached \
-    && yes '' | pecl install imagick && docker-php-ext-enable imagick \
     && docker-php-source delete \
     && apt-get clean -y && apt-get autoclean -y && apt-get autoremove -y \
     && rm -rf /var/lib/apt/lists/*
