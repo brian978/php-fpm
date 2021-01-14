@@ -54,6 +54,7 @@ RUN apt-get update \
         libreadline-dev \
         libxml2-dev \
         libxslt1-dev \
+        librabbitmq-dev \
         wget \
         unzip \
         zlib1g-dev \
@@ -100,10 +101,11 @@ RUN apt-get update \
         zip \
     && pecl install xdebug && docker-php-ext-enable xdebug \
     && pecl install mongodb && docker-php-ext-enable mongodb \
-    && pecl install redis && docker-php-ext-enable redis \
     && pecl install sqlsrv && docker-php-ext-enable sqlsrv \
     && pecl install pdo_sqlsrv && docker-php-ext-enable pdo_sqlsrv \
     && pecl install memcached && docker-php-ext-enable memcached \
+    && pecl install redis && docker-php-ext-enable redis \
+    && pecl install amqp && docker-php-ext-enable amqp \
     && yes '' | pecl install imagick && docker-php-ext-enable imagick \
     && docker-php-source delete \
     && apt-get clean -y && apt-get autoclean -y && apt-get autoremove -y \

@@ -9,6 +9,7 @@
     * mssql support
     * sqlsrv support
     * Redis support
+    * RabbitMQ support
     * memcache support
 
 
