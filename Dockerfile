@@ -1,4 +1,4 @@
-FROM php:7.4-fpm-buster
+FROM php:7.4-fpm
 
 ARG DEBIAN_FRONTEND=noninteractive
 
@@ -18,11 +18,11 @@ RUN curl -sL https://deb.nodesource.com/setup_16.x | bash -
 RUN curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | apt-key add -
 RUN echo "deb https://dl.yarnpkg.com/debian/ stable main" | tee /etc/apt/sources.list.d/yarn.list
 
-# Install the MSSQL required drivers
-RUN apt-get update
-RUN ACCEPT_EULA=Y apt-get install -y msodbcsql17
-RUN ACCEPT_EULA=Y apt-get install -y mssql-tools
-RUN apt-get install -y vim unixodbc-dev
+# # Install the MSSQL required drivers
+# RUN apt-get update
+# RUN ACCEPT_EULA=Y apt-get install -y msodbcsql17
+# RUN ACCEPT_EULA=Y apt-get install -y mssql-tools
+# RUN apt-get install -y vim unixodbc-dev
 
 # Download PHP tools
 RUN curl https://getcomposer.org/composer-stable.phar -o /usr/local/bin/composer && chmod +x /usr/local/bin/composer
@@ -71,7 +71,7 @@ RUN apt-get update \
     && docker-php-ext-install -j$(nproc) imap \
     && docker-php-ext-configure intl \
     && docker-php-ext-install -j$(nproc) intl \
-    && docker-php-ext-configure ldap --with-libdir=lib/x86_64-linux-gnu/ \
+    && docker-php-ext-configure ldap \
     && docker-php-ext-install ldap \
     && docker-php-ext-install -j$(nproc) \
         bcmath \
@@ -91,7 +91,6 @@ RUN apt-get update \
         pdo_sqlite \
         phar \
         pgsql \
-        readline \
         soap \
         sockets \
         sodium \
@@ -102,8 +101,8 @@ RUN apt-get update \
         zip \
     && pecl install xdebug && docker-php-ext-enable xdebug \
     && pecl install mongodb && docker-php-ext-enable mongodb \
-    && pecl install sqlsrv && docker-php-ext-enable sqlsrv \
-    && pecl install pdo_sqlsrv && docker-php-ext-enable pdo_sqlsrv \
+    # && pecl install sqlsrv && docker-php-ext-enable sqlsrv \
+    # && pecl install pdo_sqlsrv && docker-php-ext-enable pdo_sqlsrv \
     && pecl install memcached && docker-php-ext-enable memcached \
     && pecl install redis && docker-php-ext-enable redis \
     && pecl install amqp && docker-php-ext-enable amqp \
