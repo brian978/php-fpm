@@ -3,28 +3,29 @@ FROM php:7.3-fpm
 ARG DEBIAN_FRONTEND=noninteractive
 
 # Prequisites
-RUN apt-get update && apt-get upgrade -y \
-    && apt-get install -y gnupg curl apt-transport-https apt-utils
+RUN apt-get update && apt-get install -y apt-utils
+RUN apt-get upgrade -y
+RUN apt-get install -y gnupg curl apt-transport-https vim unixodbc unixodbc-dev
 
 # Add Microsoft repository
 RUN curl https://packages.microsoft.com/keys/microsoft.asc | apt-key add -
-RUN curl https://packages.microsoft.com/config/debian/9/prod.list > /etc/apt/sources.list.d/mssql-release.list
+RUN curl https://packages.microsoft.com/config/debian/10/prod.list > /etc/apt/sources.list.d/mssql-release.list
 
 # Add NodeJS repository
-RUN curl -sL https://deb.nodesource.com/setup_12.x | bash -
+RUN curl -sL https://deb.nodesource.com/setup_16.x | bash -
 
 # Add Yarn repository
 RUN curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | apt-key add -
 RUN echo "deb https://dl.yarnpkg.com/debian/ stable main" | tee /etc/apt/sources.list.d/yarn.list
 
 # Install the MSSQL required drivers
-RUN apt-get update \
-    && ACCEPT_EULA=Y apt-get install -y msodbcsql17 mssql-tools \
-    && apt-get install -y vim unixodbc-dev
+RUN apt-get update
+RUN ACCEPT_EULA=Y apt-get install -y msodbcsql17
+RUN ACCEPT_EULA=Y apt-get install -y mssql-tools
 
 # Download PHP tools
 RUN curl https://getcomposer.org/composer-stable.phar -o /usr/local/bin/composer && chmod +x /usr/local/bin/composer
-RUN curl https://phar.phpunit.de/phpunit-9.phar -o /usr/local/bin/phpunit && chmod +x /usr/local/bin/phpunit
+RUN curl https://phar.phpunit.de/phpunit-9.5.10.phar -o /usr/local/bin/phpunit && chmod +x /usr/local/bin/phpunit
 
 # PHP setup
 RUN apt-get update && apt-get upgrade -y \
@@ -88,7 +89,6 @@ RUN apt-get update && apt-get upgrade -y \
         pdo_sqlite \
         phar \
         pgsql \
-        readline \
         soap \
         sockets \
         sodium \
