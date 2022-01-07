@@ -1,4 +1,4 @@
-FROM php:8.0.10-fpm
+FROM php:8.1-fpm
 
 ARG DEBIAN_FRONTEND=noninteractive
 
@@ -63,7 +63,7 @@ RUN apt-get install -y \
         locales
 
 # PHP setup MSSQL
-RUN pecl install sqlsrv && docker-php-ext-enable sqlsrv && pecl install pdo_sqlsrv && docker-php-ext-enable pdo_sqlsrv
+# RUN pecl install sqlsrv && docker-php-ext-enable sqlsrv && pecl install pdo_sqlsrv && docker-php-ext-enable pdo_sqlsrv
 
 # PHP AMQP
 RUN pecl install amqp && docker-php-ext-enable amqp
