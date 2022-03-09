@@ -7,25 +7,9 @@ RUN apt-get update && apt-get install -y apt-utils
 RUN apt-get upgrade -y
 RUN apt-get install -y gnupg curl apt-transport-https vim unixodbc unixodbc-dev
 
-# Add Microsoft repository
-RUN curl https://packages.microsoft.com/keys/microsoft.asc | apt-key add -
-RUN curl https://packages.microsoft.com/config/debian/10/prod.list > /etc/apt/sources.list.d/mssql-release.list
-
-# Add NodeJS repository
-RUN curl -sL https://deb.nodesource.com/setup_16.x | bash -
-
 # Add Yarn repository
 RUN curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | apt-key add -
 RUN echo "deb https://dl.yarnpkg.com/debian/ stable main" | tee /etc/apt/sources.list.d/yarn.list
-
-# Install the MSSQL required drivers
-RUN apt-get update
-RUN ACCEPT_EULA=Y apt-get install -y msodbcsql17
-RUN ACCEPT_EULA=Y apt-get install -y mssql-tools
-
-# Download PHP tools
-RUN curl https://getcomposer.org/composer-stable.phar -o /usr/local/bin/composer && chmod +x /usr/local/bin/composer
-RUN curl https://phar.phpunit.de/phpunit-9.5.10.phar -o /usr/local/bin/phpunit && chmod +x /usr/local/bin/phpunit
 
 # PHP setup prerequisites
 RUN apt-get update && apt-get upgrade -y
@@ -62,14 +46,8 @@ RUN apt-get install -y \
         iputils-ping \
         locales
 
-# PHP setup MSSQL
-# RUN pecl install sqlsrv && docker-php-ext-enable sqlsrv && pecl install pdo_sqlsrv && docker-php-ext-enable pdo_sqlsrv
-
 # PHP AMQP
 RUN pecl install amqp && docker-php-ext-enable amqp
-
-# PHP developer tools
-RUN pecl install xdebug && docker-php-ext-enable xdebug
 
 # PHP setup extensions
 RUN docker-php-ext-configure gd --with-freetype --with-jpeg && docker-php-ext-install -j$(nproc) gd \
