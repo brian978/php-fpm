@@ -6,7 +6,6 @@
     * php-intl support
     * xdebug support
     * MongoDB support
-    * mssql support
     * sqlsrv support
     * Redis support
     * RabbitMQ support
