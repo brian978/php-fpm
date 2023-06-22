@@ -20,8 +20,7 @@ jobs:
           username: ${{ secrets.DK_HUB_USR }}
           password: ${{ secrets.DK_HUB }}
 
-      - uses: actions/checkout@v3
-        name: Build the Docker image for PHP 8.1
+      - name: Build the Docker image for PHP 8.1
         run: |
           make 81 env=prod
           make 81 env=dev
