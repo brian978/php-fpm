@@ -6,7 +6,7 @@ ENV=$2
 
 SUFFIX=''
 
-function build_image () {
+build_image () {
     env=$1
     version=$2
     suffix=$3
