@@ -2,9 +2,6 @@
 
 env=prod
 
-74:
-	@sh ./build.sh 7.4 $(env)
-
 80:
 	@sh ./build.sh 8.0 $(env)
 
