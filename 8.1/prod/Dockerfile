@@ -88,7 +88,7 @@ RUN docker-php-ext-install -j$(nproc) \
     && apt-get clean -y && apt-get autoclean -y && apt-get autoremove -y \
     && rm -rf /var/lib/apt/lists/*
 
-# Install NPM - seems it works if ran at the end
+# Install NPM
 RUN apt-get update && apt-get upgrade -y && apt-get install -y npm
 
 # Enable all UTF-8 locales
