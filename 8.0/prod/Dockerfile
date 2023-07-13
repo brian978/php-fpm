@@ -49,7 +49,6 @@ RUN apt-get install -y \
         unzip \
         zlib1g-dev \
         nodejs \
-        npm \
         yarn \
         iputils-ping \
         locales
