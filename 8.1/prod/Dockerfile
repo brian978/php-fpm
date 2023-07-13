@@ -89,7 +89,7 @@ RUN docker-php-ext-install -j$(nproc) \
     && rm -rf /var/lib/apt/lists/*
 
 # Install NPM
-RUN apt-get install -y npm
+RUN apt-get update && apt-get upgrade -y && apt-get install -y npm
 
 # Enable all UTF-8 locales
 RUN sed -i -E "s/#\ (.*)\.UTF-8(.*)/\1.UTF-8\2/" /etc/locale.gen && locale-gen
