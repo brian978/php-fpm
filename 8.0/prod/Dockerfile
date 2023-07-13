@@ -8,7 +8,7 @@ RUN apt-get upgrade -y
 RUN apt-get install -y gnupg curl apt-transport-https vim unixodbc unixodbc-dev
 
 # Add NodeJS repository
-RUN curl -sL https://deb.nodesource.com/setup_16.x | bash -
+RUN curl -sL https://deb.nodesource.com/setup_20.x | bash -
 
 # Add Yarn repository
 RUN curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | apt-key add -
