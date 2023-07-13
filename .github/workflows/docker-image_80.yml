@@ -1,14 +1,14 @@
-name: Docker Image CI
+name: PHP 8.0 docker image
 
 on:
   push:
     branches: [ "main" ]
     paths:
-      - '8.0/*'
+      - '*/8.0/*'
   pull_request:
     branches: [ "main" ]
     paths:
-      - '8.0/*'
+      - '*/8.0/*'
 
 jobs:
   build-80:
