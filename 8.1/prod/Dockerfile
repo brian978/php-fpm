@@ -17,7 +17,7 @@ RUN apt-get install -y \
         g++ \
         git \
         libonig-dev \
-        libzip-dev \ 
+        libzip-dev \
         libbz2-dev \
         libc-client-dev \
         libcurl4-gnutls-dev \
@@ -42,6 +42,7 @@ RUN apt-get install -y \
         unzip \
         zlib1g-dev \
         nodejs \
+        npm \
         yarn \
         iputils-ping \
         locales
