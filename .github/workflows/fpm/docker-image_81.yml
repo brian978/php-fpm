@@ -2,11 +2,11 @@ name: PHP 8.1 docker image
 
 on:
   push:
-    branches: [ "main" ]
+    branches: [ "base" ]
     paths:
       - '8.1/**'
   pull_request:
-    branches: [ "main" ]
+    branches: [ "base" ]
     paths:
       - '8.1/**'
 
