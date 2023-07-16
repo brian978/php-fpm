@@ -26,5 +26,5 @@ jobs:
 
       - name: Build the Docker image for PHP 8.1
         run: |
-          make 81
-          make 81 env=dev
+          make 81 type=fpm
+          make 81 type=fpm env=dev

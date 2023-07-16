@@ -26,4 +26,4 @@ jobs:
 
       - name: Build the Docker image for PHP 8.0
         run: |
-          make 80
+          make 80 type=fpm
