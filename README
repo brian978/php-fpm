@@ -1,15 +1,1 @@
 # PHP FPM docker container
-
-* Base image: php:7.4-fpm
-* Provides:
-    * php
-    * php-intl support
-    * xdebug support
-    * MongoDB support
-    * sqlsrv support
-    * Redis support
-    * RabbitMQ support
-    * memcache support
-
-
-For the complete package list please see the Dockerfile
