@@ -10,13 +10,12 @@ RUN apt-get install -y gnupg curl apt-transport-https vim unixodbc unixodbc-dev
 # Add NodeJS repository
 RUN curl -sL https://deb.nodesource.com/setup_20.x | bash -
 
+# Install NPM
+RUN apt-get update && apt-get upgrade -y && apt-get install -y npm
+
 # Add Yarn repository
 RUN curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | apt-key add -
 RUN echo "deb https://dl.yarnpkg.com/debian/ stable main" | tee /etc/apt/sources.list.d/yarn.list
-
-# Download PHP tools
-RUN curl https://getcomposer.org/composer-stable.phar -o /usr/local/bin/composer && chmod +x /usr/local/bin/composer
-RUN curl https://phar.phpunit.de/phpunit-9.6.9.phar -o /usr/local/bin/phpunit && chmod +x /usr/local/bin/phpunit
 
 # PHP setup prerequisites
 RUN apt-get update && apt-get upgrade -y
@@ -59,9 +58,6 @@ RUN pecl install sqlsrv && docker-php-ext-enable sqlsrv && pecl install pdo_sqls
 # PHP AMQP
 RUN pecl install amqp && docker-php-ext-enable amqp
 
-# PHP developer tools
-RUN pecl install xdebug && docker-php-ext-enable xdebug
-
 # PHP setup extensions
 RUN docker-php-ext-configure gd --with-freetype --with-jpeg && docker-php-ext-install -j$(nproc) gd \
     && docker-php-ext-configure imap --with-kerberos --with-imap-ssl && docker-php-ext-install -j$(nproc) imap \
@@ -100,9 +96,6 @@ RUN docker-php-ext-install -j$(nproc) \
     && docker-php-source delete \
     && apt-get clean -y && apt-get autoclean -y && apt-get autoremove -y \
     && rm -rf /var/lib/apt/lists/*
-
-# Install NPM
-RUN apt-get install -y npm
 
 # Enable all UTF-8 locales
 RUN sed -i -E "s/#\ (.*)\.UTF-8(.*)/\1.UTF-8\2/" /etc/locale.gen && locale-gen

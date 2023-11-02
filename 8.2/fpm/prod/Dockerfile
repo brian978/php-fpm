@@ -1,4 +1,4 @@
-FROM php:8.1-fpm
+FROM php:8.2-fpm
 
 ARG DEBIAN_FRONTEND=noninteractive
 ARG NODE_MAJOR=21
