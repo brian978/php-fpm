@@ -25,6 +25,7 @@ build_image () {
     docker buildx rm phpbuilder
 }
 
+# The dev image is based on the production one, so we need to compile that first if it's not present
 if [ "$ENV" = 'dev' ]
 then
     SUFFIX='-dev'

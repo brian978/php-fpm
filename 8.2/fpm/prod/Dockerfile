@@ -58,6 +58,9 @@ RUN apt-get install -y \
 # PHP AMQP
 RUN pecl install amqp && docker-php-ext-enable amqp
 
+# PHP APCu
+RUN pecl install apcu && docker-php-ext-enable apcu
+
 # PHP setup extensions
 RUN docker-php-ext-configure gd --with-freetype --with-jpeg && docker-php-ext-install -j$(nproc) gd \
     && docker-php-ext-configure imap --with-kerberos --with-imap-ssl && docker-php-ext-install -j$(nproc) imap \
@@ -76,7 +79,7 @@ RUN docker-php-ext-install -j$(nproc) iconv
 RUN docker-php-ext-install -j$(nproc) intl
 RUN docker-php-ext-install -j$(nproc) mbstring
 RUN docker-php-ext-install -j$(nproc) mysqli
-RUN docker-php-ext-install -j$(nproc) opcache
+# RUN docker-php-ext-install -j$(nproc) opcache
 RUN docker-php-ext-install -j$(nproc) pdo_mysql
 RUN docker-php-ext-install -j$(nproc) pdo_pgsql
 RUN docker-php-ext-install -j$(nproc) pdo_sqlite
