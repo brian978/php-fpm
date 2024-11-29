@@ -91,7 +91,7 @@ RUN docker-php-ext-install -j$(nproc) zip
 RUN pecl install mongodb && docker-php-ext-enable mongodb
 RUN pecl install memcached && docker-php-ext-enable memcached
 RUN pecl install redis && docker-php-ext-enable redis
-RUN yes '' | pecl install imagick && docker-php-ext-enable imagick
+# RUN yes '' | pecl install imagick && docker-php-ext-enable imagick
 RUN docker-php-source delete
 RUN apt-get clean -y
 RUN apt-get autoclean -y
