@@ -34,6 +34,7 @@ then
 
     # Build the prod image first as the DEV one requires it
     # shellcheck disable=SC2039
+    # shellcheck disable=SC3010
     if [[ "$(docker images -q brian978/php-"$TYPE":"$VERSION" 2> /dev/null)" == "" ]]
     then
         echo "Building the production image"

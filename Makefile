@@ -1,4 +1,4 @@
-.DEFAULT_GOAL := 82
+.DEFAULT_GOAL := 83
 
 type=fpm
 env=prod
@@ -12,7 +12,11 @@ env=prod
 82:
 	@sh ./build.sh 8.2 $(type) $(env)
 
+83:
+	@sh ./build.sh 8.3 $(type) $(env)
+
 all:
 	sh ./build.sh 8.0 $(type) $(env)
 	sh ./build.sh 8.1 $(type) $(env)
 	sh ./build.sh 8.2 $(type) $(env)
+	sh ./build.sh 8.3 $(type) $(env)
