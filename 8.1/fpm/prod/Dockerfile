@@ -16,6 +16,9 @@ RUN echo "deb [signed-by=/etc/apt/keyrings/nodesource.gpg] https://deb.nodesourc
 # Install NodeJS
 RUN apt-get update && apt-get install -y nodejs
 
+# Installing specific npm version to make installation more predicatable
+RUN npm install -g npm@11.7.0
+
 # Add Yarn repository
 RUN curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | apt-key add -
 RUN echo "deb https://dl.yarnpkg.com/debian/ stable main" | tee /etc/apt/sources.list.d/yarn.list
