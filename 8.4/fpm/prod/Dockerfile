@@ -1,7 +1,7 @@
 FROM php:8.4-fpm
 
 ARG DEBIAN_FRONTEND=noninteractive
-ARG NODE_MAJOR=23
+ARG NODE_MAJOR=25
 
 # Prequisites
 RUN apt-get update && apt-get install -y apt-utils
