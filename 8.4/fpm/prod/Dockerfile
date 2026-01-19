@@ -20,8 +20,8 @@ RUN apt-get update && apt-get install -y nodejs
 RUN npm install -g npm@11.7.0
 
 # Add Yarn repository
-RUN curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | apt-key add -
-RUN echo "deb https://dl.yarnpkg.com/debian/ stable main" | tee /etc/apt/sources.list.d/yarn.list
+RUN curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | gpg --dearmor -o /etc/apt/keyrings/yarn.gpg
+RUN echo "deb [signed-by=/etc/apt/keyrings/yarn.gpg] https://dl.yarnpkg.com/debian/ stable main" | tee /etc/apt/sources.list.d/yarn.list
 
 # PHP setup prerequisites
 RUN apt-get update && apt-get upgrade -y
@@ -31,7 +31,6 @@ RUN apt-get install -y \
         libonig-dev \
         libzip-dev \
         libbz2-dev \
-        libc-client-dev \
         libcurl4-gnutls-dev \
         libedit-dev \
         libfreetype6-dev \
@@ -62,10 +61,7 @@ RUN apt-get install -y \
 RUN pecl install amqp && docker-php-ext-enable amqp
 
 # PHP setup extensions
-#RUN docker-php-ext-configure gd --with-freetype --with-jpeg && docker-php-ext-install -j$(nproc) gd \
-#    && docker-php-ext-configure imap --with-kerberos --with-imap-ssl && docker-php-ext-install -j$(nproc) imap \
-#    && docker-php-ext-configure intl && docker-php-ext-install -j$(nproc) intl \
-#    && docker-php-ext-configure ldap && docker-php-ext-install ldap
+RUN docker-php-ext-configure gd --with-freetype --with-jpeg && docker-php-ext-install -j$(nproc) gd
 
 RUN docker-php-ext-install -j$(nproc) bcmath
 RUN docker-php-ext-install -j$(nproc) bz2
