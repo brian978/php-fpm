@@ -1,14 +1,21 @@
 name: PHP 8.4 docker image
 
 on:
+  workflow_dispatch:
   push:
     branches: [ "main" ]
     paths:
       - '8.4/**'
+      - 'build.sh'
+      - 'Makefile'
+      - '.github/workflows/docker-image_84.yml'
   pull_request:
     branches: [ "main" ]
     paths:
       - '8.4/**'
+      - 'build.sh'
+      - 'Makefile'
+      - '.github/workflows/docker-image_84.yml'
 
 jobs:
   build-84:

@@ -12,7 +12,9 @@ build_image () {
     version=$2
     suffix=$3
 
-    platforms=linux/amd64,linux/arm64
+    # Linux servers only. arm64 is for local development on a Mac and has its
+    # own build, so it no longer doubles (under emulation) the time of this one.
+    platforms=linux/amd64
 
     # Creating a new builder for the multiplatform support
     docker buildx create --name phpbuilder --use
