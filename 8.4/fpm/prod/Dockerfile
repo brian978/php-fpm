@@ -1,4 +1,7 @@
-FROM php:8.4-fpm
+# Pinned to the patch release, not the floating 8.4 tag: 8.4.27 fixes the
+# PHP2Shell RCEs (CVE-2026-109618, CVE-2026-109619), and a pin makes the build
+# fail loudly instead of silently shipping an older interpreter.
+FROM php:8.4.27-fpm
 
 ARG DEBIAN_FRONTEND=noninteractive
 ARG NODE_MAJOR=25
