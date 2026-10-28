@@ -101,3 +101,9 @@ RUN rm -rf /var/lib/apt/lists/*
 
 # Enable all UTF-8 locales
 RUN sed -i -E "s/#\ (.*)\.UTF-8(.*)/\1.UTF-8\2/" /etc/locale.gen && locale-gen
+
+# Session upload progress stays off until PHP ships the fix for CVE-2026-115560
+# in its next bugfix release; it is also a PHP2Shell path (CVE-2026-109619).
+# It has to be set here, before request parsing: ini_set() and .user.ini come
+# too late. None of the apps on these images use the feature.
+RUN echo 'session.upload_progress.enabled = 0' > "$PHP_INI_DIR/conf.d/zz-security.ini"
